@@ -3,15 +3,6 @@
 #include <cmath>
 #include <memory>
 #include <stdexcept>
-/*µÚËÄ½×¶Î:
-ÊµÏÖ´óÕûÊıµÄ³Ë·¨¡¢³ı·¨ºÍÈ¡ÓàÔËËã.
-
-*Tips 
-1) ´óÕûÊı³ı´óÕûÊı, ½á¹ûÊÇ´óÕûÊı.
-2) ³ı·¨µÄË¼Ïë: ·´¸´×ö¼õ·¨, ¿´¿´´Ó±»³ıÊıÀï×î¶àÄÜ¼õÈ¥¶àÉÙ¸ö³ıÊı, ÉÌ¾ÍÊÇ¶àÉÙ.
-Ò»¸öÒ»¸ö¼õÏÔÈ»Ì«Âı£¬ÈçºÎ¼õµÃ¸ü¿ìÒ»Ğ©ÄØ£¿ÒÔ 7546 ³ıÒÔ 23 ÎªÀı: ¿ªÊ¼ÉÌÎª 0.
-ÏÈ¼õÈ¥ 23 µÄ 100 ±¶, ¾ÍÊÇ 2300£¬·¢ÏÖ¹»¼õ 3 ´Î, ÓàÏÂ 646, ÓÚÊÇÉÌµÄÖµ¾ÍÔö¼Ó 300.
-È»ºóÓÃ 646¼õÈ¥ 230, ·¢ÏÖ¹»¼õ 2 ´Î, ÓàÏÂ 186, ÓÚÊÇÉÌµÄÖµÔö¼Ó 20. ×îºóÓÃ 186 ¼õÈ¥ 23, ¹»¼õ 8 ´Î, Òò´Ë×îÖÕÉÌ¾ÍÊÇ 328.*/
 
 std::vector<int>::size_type bigInt::size() const
 {
@@ -35,9 +26,8 @@ bigInt operator+ (const bigInt &a,const bigInt &b)
 	if (a[0]==b[0])
 	{
 		c.data.push_back(a[0]);
-		std::vector<int>::size_type i = 1, len_a = a.size(), len_b = b.size();//×î¿ªÊ¼±¨´í¡°abort() has been called¡±£¬ÏµÔÚÑ­»·ÖĞµ÷ÓÃdata.size(),Ó¦ÔÚ×î¿ªÊ¼´æÈë
-		int flag = 0;
-		if (a.size() > b.size())//ÏëÓÃcosnt &´«Èë£¬ËùÒÔ²»ÄÜÓÃÖ¸Õë´úÌæ£¬Ö»ºÃĞ´³öÁ½ÖÖÇé¿ö
+		std::vector<int>::size_type i = 1, len_a = a.size(), len_b = b.size();
+		if (a.size() > b.size())
 		{
 				for (; i != len_b + 1; i++)
 				{
@@ -78,13 +68,13 @@ bigInt operator+ (const bigInt &a,const bigInt &b)
 bigInt operator- (const bigInt &a, const bigInt &b)
 {
 	bigInt c;
-	//·ûºÅÏàÍ¬
+	//ç¬¦å·ç›¸åŒ
 	if (a[0]==b[0])
 	{
 		c.data.push_back(a[0]);
 		std::vector<int>::size_type i = 1,len_a = a.size(), len_b = b.size();
 		int flag = 0;
-		if (absv(a) > absv(b))//const²»ÄÜÓÃÖ¸Õë£¬ËÆºõÖ»ÄÜÕâÑùÖØ¸´
+		if (absv(a) > absv(b))
 		{
 			for (; i != len_a + 1; i++)
 			{
@@ -116,9 +106,9 @@ bigInt operator- (const bigInt &a, const bigInt &b)
 				}
 			}
 		}
-		//É¨0
+	
 		while (c.size() > 1 && c[c.size()] == 0) c.data.pop_back();
-		//·ûºÅÎ»
+
 			if (a < b)
 				c.data[0] = 1;
 			else
@@ -164,7 +154,7 @@ bigInt operator* (const int a, const bigInt &b)
 bigInt operator/ (const bigInt &a, const bigInt &b)
 {
 	if (b == 0)
-		throw std::domain_error ("³ıÊı²»µÃÎª0£¡");
+		throw std::domain_error ("é™¤æ•°ä¸å¾—ä¸º0ï¼");
 	if (absv(a) < absv(b))
 		return 0;
 	else {
@@ -202,7 +192,7 @@ bigInt operator% (const bigInt &a, const bigInt &b)
 }
 
 
-std::ostream& operator<<(std::ostream& os, const bigInt& a)//³£¼ÇÒıÓÃ
+std::ostream& operator<<(std::ostream& os, const bigInt& a)//å¸¸è®°å¼•ç”¨
 {
 	if (a.data[0] == 1)
 		os << "-";
@@ -239,7 +229,7 @@ bool operator== (const bigInt &a, const bigInt &b)
 {
 	if (a.size() != b.size())
 		return false;
-	for (std::vector<int>::size_type i = 0; i != a.size() + 1; i++)//ÕâÀïÖ®Ç°ÍüÁË+1£¬Ò»Î»ÊıÅĞ¶Ï²»ÁË£¬µ¼ÖÂÕû¸ö³ÌĞòµÄÃÔÖ®´íÎó¡­¡­ĞÄÀÛ£¬deÁËÒ»ÍíÉÏBUG
+	for (std::vector<int>::size_type i = 0; i != a.size() + 1; i++)
 	{
 		if (a.data[i] != b.data[i])
 			return false;
