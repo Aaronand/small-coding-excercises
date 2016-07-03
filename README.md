@@ -1,2 +1,4 @@
-# small-coding-excercises
-to practice coding and learn how to use GitHub
+ Small Excercises
+=============================================
+*   Practice coding  
+*   Learn how to use GitHub
